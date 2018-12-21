@@ -2,14 +2,27 @@ package com.example.android.codelabs.navigation
 
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
+import androidx.fragment.app.Fragment
 
 class TestFragment : Fragment() {
+
+    companion object {
+        private const val TAG: String = "TestFragment"
+    }
+
+    var myName: String? = null
+
+    override fun onDestroy() {
+        super.onDestroy()
+
+        Log.d(TAG, "onDestroy() called")
+    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -27,6 +40,10 @@ class TestFragment : Fragment() {
         }
 
         return view
+    }
+
+    fun setTheName(name: String) {
+        myName = name
     }
 
 }
