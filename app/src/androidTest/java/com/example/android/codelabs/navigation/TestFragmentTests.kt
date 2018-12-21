@@ -3,6 +3,8 @@ package com.example.android.codelabs.navigation
 import androidx.fragment.app.testing.FragmentScenario
 import androidx.fragment.app.testing.launchFragmentInContainer
 import androidx.lifecycle.Lifecycle
+import androidx.navigation.NavController
+import androidx.navigation.Navigation
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.assertion.ViewAssertions.matches
@@ -13,10 +15,11 @@ import org.hamcrest.CoreMatchers.equalTo
 import org.hamcrest.MatcherAssert.assertThat
 import org.junit.Test
 import org.junit.runner.RunWith
+import org.mockito.Mockito.mock
 
 
 @RunWith(AndroidJUnit4::class)
-class MyTest {
+class TestFragmentTests {
 
     private val scenario: FragmentScenario<TestFragment> by lazy {
 
@@ -59,6 +62,15 @@ class MyTest {
     @Test
     fun testChangeFragmentState() {
         scenario.moveToState(Lifecycle.State.DESTROYED)
+    }
+
+    @Test
+    fun testNavigationToTestFragment() {
+        val navController = mock(NavController::class.java)
+        scenario.onFragment { fragment ->
+            Navigation.setViewNavController(fragment.view!!, navController)
+
+        }
     }
 
 }
